@@ -1,10 +1,4 @@
-# 🧠 OmniCanvas AI — Multimodal Hybrid RAG & Document Intelligence Platform
-
-[![Python](https.img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector_Store-FF6F61?style=for-the-badge&logo=databricks&logoColor=white)](https://trychroma.com)
-[![Gemini](https://img.shields.io/badge/Gemini_2.5_Flash-RAG_Engine-8E75FF?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+# OmniCanvas AI — Multimodal Hybrid RAG 
 
 **OmniCanvas AI** is an enterprise-grade **Multimodal Retrieval-Augmented Generation (RAG)** platform designed for document intelligence, page-accurate citation tracking, and automated guardrail safety. It combines **Okapi BM25 keyword matching** with **ChromaDB neural vector embeddings** via **Reciprocal Rank Fusion (RRF)**, powered by **FastAPI** and **Gemini 2.5 Flash / Groq**.
 
@@ -19,7 +13,7 @@
   - **Input PII Redaction**: Automatically redacts credit cards (Luhn-checked), SSNs, emails, phone numbers, and API keys.
   - **Prompt Injection Defense**: Filters instruction-hijacking patterns from retrieved document passages.
   - **Claim Groundedness Scoring**: Calculates real-time claim support metrics (`95% well supported`) on every generated response.
-- 🎨 **Interactive Live Canvas & 3D UI**: Features a live sandboxed execution canvas for HTML/SVG/Mermaid visualizers alongside an interactive Three.js 3D WebGL Holographic core.
+- 🎨 **Interactive Live Canvas & 3D UI**: Features a live sandboxed execution canvas for HTML/SVG/Mermaid visualizers 
 
 ---
 
