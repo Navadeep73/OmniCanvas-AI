@@ -1,0 +1,18 @@
+# Ranges, not a lockfile. After your first successful install run:
+#   pip freeze > requirements.lock.txt
+fastapi>=0.110,<1
+uvicorn[standard]>=0.29,<1
+pydantic>=2.6,<3
+sqlalchemy>=2.0,<3
+python-multipart>=0.0.9
+python-dotenv>=1.0
+
+langchain-core>=0.3,<1
+langchain-google-genai>=2.0,<4
+langchain-groq>=0.2,<1
+chromadb>=0.5,<2
+pymupdf>=1.24
+
+# dev
+pytest>=8
+httpx>=0.27

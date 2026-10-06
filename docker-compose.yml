@@ -1,0 +1,15 @@
+services:
+  omnicanvas:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DATA_DIR: /data
+    volumes:
+      - omnicanvas-data:/data
+    restart: unless-stopped
+
+volumes:
+  omnicanvas-data:

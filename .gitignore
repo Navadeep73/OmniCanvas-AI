@@ -1,0 +1,29 @@
+# secrets
+.env
+*.env.local
+
+# runtime data
+data/
+backend/data/
+backend/uploads/
+backend/chroma_db/
+*.db
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# node / editor
+node_modules/
+.DS_Store
+.vscode/
+.idea/
+
+# eval & logs
+eval/results.json
+*.log
+
