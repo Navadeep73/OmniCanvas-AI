@@ -7,6 +7,28 @@ const listEl = $("#sessionList");
 const searchEl = $("#sessionSearch");
 const hidden = new Set(); // soft-deleted ids waiting out the undo window
 
+function getMySessionIds() {
+  try {
+    return JSON.parse(localStorage.getItem("oc.mySessions") || "[]");
+  } catch {
+    return [];
+  }
+}
+
+export function trackMySessionId(id) {
+  if (!id) return;
+  const ids = getMySessionIds();
+  if (!ids.includes(id)) {
+    ids.unshift(id);
+    localStorage.setItem("oc.mySessions", JSON.stringify(ids.slice(0, 100)));
+  }
+}
+
+function forgetMySessionId(id) {
+  const ids = getMySessionIds().filter((s) => s !== id);
+  localStorage.setItem("oc.mySessions", JSON.stringify(ids));
+}
+
 function visibleSessions() {
   const query = searchEl.value.trim().toLowerCase();
   return state.sessions.filter((s) => !hidden.has(s.id) && (!query || s.title.toLowerCase().includes(query)));
@@ -41,6 +63,7 @@ function startRename(item, session) {
 
 function remove(session) {
   hidden.add(session.id);
+  forgetMySessionId(session.id);
   const wasActive = state.sessionId === session.id;
   render();
   if (wasActive) bus.emit("session:deleted", session.id);
@@ -52,6 +75,7 @@ function remove(session) {
     onAction: () => {
       undone = true;
       hidden.delete(session.id);
+      trackMySessionId(session.id);
       render();
       if (wasActive) bus.emit("session:select", session.id);
     },
@@ -105,18 +129,23 @@ export function render() {
 
 export const sessions = {
   async load() {
-    state.sessions = await api.sessions();
+    const all = await api.sessions();
+    const myIds = new Set(getMySessionIds());
+    // Only display sessions created on this specific browser device
+    state.sessions = all.filter((s) => myIds.has(s.id));
     render();
     return state.sessions;
   },
   async create() {
     const session = await api.createSession(state.provider);
+    trackMySessionId(session.id);
     state.sessions.unshift(session);
     render();
     return session;
   },
   /** Update a title/time locally after a reply, and float the chat to the top. */
   touch(id, title) {
+    trackMySessionId(id);
     const session = state.sessions.find((s) => s.id === id);
     if (!session) return;
     if (title) session.title = title;

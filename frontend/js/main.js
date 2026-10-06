@@ -311,8 +311,16 @@ async function boot() {
       toast("Using offline keyword search. Add a Gemini key for semantic matching.", { duration: 7000 });
     }
 
-    if (state.sessions.length) await selectSession(state.sessions[0].id, { force: true });
-    else chat.showHero();
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlSession = urlParams.get("session");
+    if (urlSession && state.sessions.some((s) => s.id === urlSession)) {
+      await selectSession(urlSession, { force: true });
+    } else if (state.sessions.length) {
+      await selectSession(state.sessions[0].id, { force: true });
+    } else {
+      chat.showHero();
+    }
+
   } catch (error) {
     chat.showHero();
     toast("Can't reach the OmniCanvas server. Start it with: uvicorn main:app", { error: true, duration: 9000 });
